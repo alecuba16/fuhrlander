@@ -2,7 +2,7 @@ classdef elm_classifier
     methods(Static)
         function [error,data,msg]=elm(X,Y,K,niterations,verbose)
                 if isempty(K)
-                    K=[10]; % Neurones capa intermitja
+                    K=1:150; % Neurones capa intermitja
                 end
                 if isempty(niterations)
                     niterations=10; % Iteracions
@@ -59,17 +59,24 @@ classdef elm_classifier
 
                         W=randn(d,K(k)); % Pesos entrada, escollits aleatoriament
                         u=ones(N,1);
-                        H=X*W+kron(u,b'); % Matriu de pesos * entrades + bias
+                        
+                        %H=X*W+kron(u,b'); % Matriu de pesos * entrades + bias
+                         H=1./(1+exp(-X*W+u*b')); % sigmoid NxH        
+                        
                         % _________________________________________
                         %  Calcul dels pesos  B de sortida___________
                         % (B normalment es una matriu: multiclassificacio
 
-                        pI=pinv(H'*H)*H'; %inv no funciona bien en todos los casos
-                        B=pI*T;  
+                        %pI=pinv(H'*H)*H'; %inv no funciona bien en todos los casos
+                        %B=pI*T;  
+                        Hpi=pinv(H);         % PseudoInversa HxN
+                        B=Hpi*y_norm;   % Pesos de sortida
+        
                         % Calcul dels resultats:  A es H!!!
                         %A=X*W+kron(u,b'); 
                         %yhat=A*B;
-                        yhat=H*B;
+                        %yhat=H*B;
+                        yhat=(1./(1+exp(-X*W+u*b')))*B;  % Predicció a la fase d'entrenament a l'entrenament
 
                         % ______
                         %  RMSE

@@ -15,7 +15,7 @@ turbine_train_files=arrayfun(@(x) strcat(dataset_path,"/",plant_data.turbines.co
 alarm_dictionary=plant_data.alarm_dictionary;
 gearbox_alarms_ids=alarm_dictionary.alarm_id(alarm_dictionary.alarm_system=="Transmission");
 
-
+verbose=true;
 data_frequency_s = 3600; %3600s = 1h;
 one_hot_encoding = true;
 
@@ -85,6 +85,8 @@ X_train=turbines_data_train(:,X_vars);
 Y_train=turbines_data_train(:,Y_var);
 X_test=turbines_data_test(:,X_vars);
 Y_test=turbines_data_test(:,Y_var);
+K=1:150; %1:100; % Neurones capa intermitja
+niterations = 1;
 
 %50 train-test
 [iserror,data,msg]=elm(X_train,Y_train,K,niterations,verbose);
