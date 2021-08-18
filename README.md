@@ -1,3 +1,13 @@
+# Author
+Alejandro Blanco-M ![email](https://raw.githubusercontent.com/alecuba16/profile/main/email.jpg)
+
+<https://github.com/alecuba16>
+
+
+
+## License
+Copyright by Alejandro Blanco-M. Licensed under Eclipse Public License v1.0.
+
 # The dataset
 This is a Fuhrländer FL2500 2.5MW wind turbine dataset.
 
